@@ -16,6 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -68,6 +69,9 @@ public class DailyServiceImpl implements DailyService {
         List<ReplyDto> replies = dailyCompleteDto.getReplies();
         Long userId = dailyCompleteDto.getUserId();
 
+        LocalDate today = LocalDate.now();
+
+
         User user = userJpaRepository.findById(userId).orElseThrow(() -> new RuntimeException("user not found"));
 
         for(ReplyDto reply : replies){
@@ -81,7 +85,19 @@ public class DailyServiceImpl implements DailyService {
                 throw new RuntimeException("No Daily found for the given question");
             }
 
-            Daily daily = dailyQuestions.get(0).getDaily(); // Assuming there's only one Daily per question
+            // 필터링: daily의 날짜가 오늘인 것만 추려내기
+            List<Daily> todaysDailies = dailyQuestions.stream()
+                    .map(DailyQuestion::getDaily)
+                    .filter(daily -> daily.getDate().toLocalDate().isEqual(today))
+                    .toList();
+
+            if (todaysDailies.isEmpty()) {
+                throw new RuntimeException("No Daily found for the given question with today's date");
+            }
+
+            // Assuming there's only one Daily per question
+            //하나의 문제를 여러 번 돌려쓰면 문제가 될 것.
+            Daily daily = todaysDailies.get(0);
 
             Answer answer = Answer.builder()
                     .user(user)
@@ -97,6 +113,7 @@ public class DailyServiceImpl implements DailyService {
 
     @Override
     public void registVoice(Long userId, MultipartFile voice) {
+
 
     }
 

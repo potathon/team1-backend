@@ -4,6 +4,5 @@ import com.potaton.potato.domain.user.dto.requestdto.LoginRequestDto;
 import com.potaton.potato.domain.user.dto.responsedto.LoginResponseDto;
 
 public interface UserService {
-
     LoginResponseDto login(LoginRequestDto loginRequestDto);
 }

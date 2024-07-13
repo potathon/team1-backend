@@ -13,6 +13,6 @@ import lombok.NoArgsConstructor;
 public class DailyInfoDto {
     private Long id;
     private LocalDateTime date;
-    private int answerCnt;
+    private Long answerCnt;
     private Boolean isDone;
 }

@@ -21,9 +21,4 @@ public class Question {
 
     private String content;
 
-    @Builder
-    public Question(Tag tag, String content){
-        this.tag = tag;
-        this.content = content;
-    }
 }

@@ -27,5 +27,5 @@ public class UserSeriveImpl implements UserService {
         user = userJpaRepository.findByToken(loginRequestDto.getToken())
                  .orElseThrow(UnauthorizedException::new);
         return new LoginResponseDto(user.getId(), user.getName());
-    }1
+    }
 }

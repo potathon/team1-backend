@@ -17,7 +17,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 @AllArgsConstructor
 @RestController
-@RequestMapping("/daily")
+@RequestMapping("/api/daily")
 public class DailyController {
 
     private DailyService dailyService;

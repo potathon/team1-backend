@@ -10,7 +10,7 @@ import org.springframework.web.multipart.MultipartFile;
 public interface DailyService {
     List<DailyInfoDto> getDailyList(Long userId);
     List<DailyReviewDto> getDailyReview(Long userId, Long dailyId);
-    List<DailyQuestionDto> getDailyQuestion();
+    List<DailyQuestionDto> getDailyQuestion(Long dailyId);
     void completeDaily(DailyCompleteDto dailyCompleteDto);
     void registVoice(Long userId, MultipartFile voice);
 }

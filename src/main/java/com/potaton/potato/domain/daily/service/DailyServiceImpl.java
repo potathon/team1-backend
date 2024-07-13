@@ -56,10 +56,6 @@ public class DailyServiceImpl implements DailyService {
 
     @Override
     public void completeDaily(DailyCompleteDto dailyCompleteDto) {
-        List<ReplyDto> replies = dailyCompleteDto.getReplies();
-        Long userId = dailyCompleteDto.getUserId();
-
-        User user = userJpaRepository.findById(userId).orElseThrow(() -> new RuntimeException("User not found"));
 
     }
 

@@ -8,8 +8,8 @@ import java.util.List;
 import org.springframework.web.multipart.MultipartFile;
 
 public interface DailyService {
-    List<DailyInfoDto> getDailyList();
-    List<DailyReviewDto> getDailyReview(Long userId);
+    List<DailyInfoDto> getDailyList(Long userId);
+    List<DailyReviewDto> getDailyReview(Long userId, Long dailyId);
     List<DailyQuestionDto> getDailyQuestion();
     void completeDaily(DailyCompleteDto dailyCompleteDto);
     void registVoice(Long userId, MultipartFile voice);

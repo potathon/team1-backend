@@ -39,8 +39,8 @@ public class DailyController {
     }
 
     @GetMapping("/test/{id}")
-    public ResponseEntity<List<DailyQuestionDto>> getDailyQuestion(){
-        List<DailyQuestionDto> dailyQuestion = dailyService.getDailyQuestion();
+    public ResponseEntity<List<DailyQuestionDto>> getDailyQuestion(@PathVariable Long id){
+        List<DailyQuestionDto> dailyQuestion = dailyService.getDailyQuestion(id);
 
         return ResponseEntity.ok(dailyQuestion);
     }

@@ -1,4 +1,4 @@
-package com.potaton.potato.domain.user.dto.requestdto.responsedto;
+package com.potaton.potato.domain.user.dto.responsedto;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

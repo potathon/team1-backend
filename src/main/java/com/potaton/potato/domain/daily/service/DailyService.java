@@ -10,6 +10,5 @@ public interface DailyService {
     List<DailyInfoDto> getDailyList(Long userId);
     DailyReviewResponseDto getDailyReview(Long userId, Long dailyId);
     DailyQuestionResponseDto getDailyQuestion(Long dailyId);
-    void completeDaily(DailyCompleteDto dailyCompleteDto);
-    void registVoice(Long userId, MultipartFile voice);
+    void completeDaily(DailyCompleteDto dailyCompleteDto, List<MultipartFile> records);
 }

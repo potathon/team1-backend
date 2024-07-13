@@ -4,12 +4,16 @@ import com.potaton.potato.domain.daily.dto.requestdto.DailyCompleteDto;
 import com.potaton.potato.domain.daily.dto.responsedto.*;
 import com.potaton.potato.domain.daily.service.DailyService;
 import com.potaton.potato.domain.user.repository.UserJpaRepository;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
+import lombok.AllArgsConstructor;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestPart;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 @AllArgsConstructor
 @RestController
@@ -44,9 +48,9 @@ public class DailyController {
     }
 
     @PostMapping("/test/{id}")
-    public ResponseEntity<String> compeleteDaily(@RequestBody  DailyCompleteDto dailyCompleteDto){
-        dailyService.completeDaily(dailyCompleteDto);
 
+    public ResponseEntity<String> compeleteDaily(@RequestPart DailyCompleteDto dailyCompleteDto, @RequestPart List<MultipartFile> records){
+        dailyService.completeDaily(dailyCompleteDto, records);
         return ResponseEntity.ok("completeDaily success");
     }
 }

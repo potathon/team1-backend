@@ -5,6 +5,7 @@ import com.potaton.potato.domain.user.dto.responsedto.LoginResponseDto;
 import com.potaton.potato.domain.user.entity.User;
 import com.potaton.potato.domain.user.repository.UserJpaRepository;
 import com.potaton.potato.global.Exception.ForbiddenException;
+import com.potaton.potato.global.Exception.UnauthorizedException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -24,7 +25,7 @@ public class UserSeriveImpl implements UserService {
     public LoginResponseDto login(LoginRequestDto loginRequestDto) {
         User user;
         user = userJpaRepository.findByToken(loginRequestDto.getToken())
-                 .orElseThrow(ForbiddenException::new);
+                 .orElseThrow(UnauthorizedException::new);
         return new LoginResponseDto(user.getId(), user.getName());
-    }
+    }1
 }

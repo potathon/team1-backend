@@ -2,9 +2,13 @@ package com.potaton.potato.domain.user.service;
 
 import com.potaton.potato.domain.user.dto.requestdto.LoginRequestDto;
 import com.potaton.potato.domain.user.dto.responsedto.LoginResponseDto;
+import com.potaton.potato.domain.user.entity.User;
 import com.potaton.potato.domain.user.repository.UserJpaRepository;
+import com.potaton.potato.global.Exception.ForbiddenException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.Optional;
 
 @Service
 public class UserSeriveImpl implements UserService {
@@ -18,7 +22,9 @@ public class UserSeriveImpl implements UserService {
 
     @Override
     public LoginResponseDto login(LoginRequestDto loginRequestDto) {
-
-        return null;
+        User user;
+        user = userJpaRepository.findByToken(loginRequestDto.getToken())
+                 .orElseThrow(ForbiddenException::new);
+        return new LoginResponseDto(user.getId(), user.getName());
     }
 }

@@ -1,9 +1,7 @@
 package com.potaton.potato.domain.daily.controller;
 
 import com.potaton.potato.domain.daily.dto.requestdto.DailyCompleteDto;
-import com.potaton.potato.domain.daily.dto.responsedto.DailyInfoDto;
-import com.potaton.potato.domain.daily.dto.responsedto.DailyQuestionDto;
-import com.potaton.potato.domain.daily.dto.responsedto.DailyReviewDto;
+import com.potaton.potato.domain.daily.dto.responsedto.*;
 import com.potaton.potato.domain.daily.service.DailyService;
 import com.potaton.potato.domain.user.repository.UserJpaRepository;
 import lombok.AllArgsConstructor;
@@ -21,7 +19,7 @@ public class DailyController {
     private DailyService dailyService;
     private UserJpaRepository userJpaRepository;
 
-    @GetMapping("/")
+    @GetMapping()
     public ResponseEntity<List<DailyInfoDto>> getDailyList(){
         Long userId = 1L;
         List<DailyInfoDto> dailyList = dailyService.getDailyList(userId);
@@ -30,17 +28,17 @@ public class DailyController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<List<DailyReviewDto>> getDailyReview(@PathVariable Long id){
+    public ResponseEntity<DailyReviewResponseDto>  getDailyReview(@PathVariable Long id){
         Long userId = 1L;
         Long dailyId = id;
-        List<DailyReviewDto> dailyReview = dailyService.getDailyReview(userId, dailyId);
+        DailyReviewResponseDto dailyReview = dailyService.getDailyReview(userId, dailyId);
 
         return ResponseEntity.ok(dailyReview);
     }
 
     @GetMapping("/test/{id}")
-    public ResponseEntity<List<DailyQuestionDto>> getDailyQuestion(@PathVariable Long id){
-        List<DailyQuestionDto> dailyQuestion = dailyService.getDailyQuestion(id);
+    public ResponseEntity<DailyQuestionResponseDto> getDailyQuestion(@PathVariable Long id){
+        DailyQuestionResponseDto dailyQuestion = dailyService.getDailyQuestion(id);
 
         return ResponseEntity.ok(dailyQuestion);
     }

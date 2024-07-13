@@ -20,4 +20,10 @@ public class Question {
     private Tag tag;
 
     private String content;
+
+    @Builder
+    public Question(Tag tag, String content){
+        this.tag = tag;
+        this.content = content;
+    }
 }

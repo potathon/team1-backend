@@ -24,16 +24,14 @@ public class DailyServiceImpl implements DailyService {
     private final DailyQuestionJpaRepository dailyQuestionJpaRepository;
     private final QuestionJpaRepository questionJpaRepository;
     private final TagJpaRepository tagJpaRepository;
-    private final UserJpaRepository userJpaRepository;
 
     @Autowired
-    public DailyServiceImpl(AnswerJpaRepository answerJpaRepository, DailyJpaRepository dailyJpaRepository, DailyQuestionJpaRepository dailyQuestionJpaRepository, QuestionJpaRepository questionJpaRepository, TagJpaRepository tagJpaRepository, UserJpaRepository userJpaRepository) {
+    public DailyServiceImpl(AnswerJpaRepository answerJpaRepository, DailyJpaRepository dailyJpaRepository, DailyQuestionJpaRepository dailyQuestionJpaRepository, QuestionJpaRepository questionJpaRepository, TagJpaRepository tagJpaRepository ) {
         this.answerJpaRepository = answerJpaRepository;
         this.dailyJpaRepository = dailyJpaRepository;
         this.dailyQuestionJpaRepository = dailyQuestionJpaRepository;
         this.questionJpaRepository = questionJpaRepository;
         this.tagJpaRepository = tagJpaRepository;
-        this.userJpaRepository = userJpaRepository;
     }
 
 

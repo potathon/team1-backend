@@ -21,7 +21,7 @@ public class DailyController {
     private DailyService dailyService;
     private UserJpaRepository userJpaRepository;
 
-    @GetMapping("")
+    @GetMapping()
     public ResponseEntity<List<DailyInfoDto>> getDailyList(){
         Long userId = 1L;
         List<DailyInfoDto> dailyList = dailyService.getDailyList(userId);

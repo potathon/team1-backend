@@ -2,9 +2,7 @@ package com.potaton.potato.domain.daily.service;
 
 import com.potaton.potato.domain.daily.dto.requestdto.DailyCompleteDto;
 import com.potaton.potato.domain.daily.dto.requestdto.ReplyDto;
-import com.potaton.potato.domain.daily.dto.responsedto.DailyInfoDto;
-import com.potaton.potato.domain.daily.dto.responsedto.DailyQuestionDto;
-import com.potaton.potato.domain.daily.dto.responsedto.DailyReviewDto;
+import com.potaton.potato.domain.daily.dto.responsedto.*;
 import com.potaton.potato.domain.daily.entity.Answer;
 import com.potaton.potato.domain.daily.entity.Daily;
 import com.potaton.potato.domain.daily.entity.DailyQuestion;
@@ -49,19 +47,31 @@ public class DailyServiceImpl implements DailyService {
 
 
     @Override
-    public List<DailyReviewDto> getDailyReview(Long userId, Long dailyId) {
+    public DailyReviewResponseDto getDailyReview(Long userId, Long dailyId) {
         List<Answer> answers = answerJpaRepository.findByDailyId(dailyId);
-        return answers.stream()
+
+        Daily daily = answers.get(0).getDaily();
+        LocalDateTime date = daily.getDate();
+
+        List<DailyReviewDto> reviewDtos = answers.stream()
                 .map(this::convertToDto)
                 .collect(Collectors.toList());
+
+        return new DailyReviewResponseDto(date, reviewDtos);
     }
 
     @Override
-    public List<DailyQuestionDto> getDailyQuestion(Long dailyId) {
+    public DailyQuestionResponseDto getDailyQuestion(Long dailyId) {
         List<DailyQuestion> questions = dailyQuestionJpaRepository.findByDailyId(dailyId);
-        return questions.stream()
+
+        Daily daily = questions.get(0).getDaily();
+        LocalDateTime date = daily.getDate();
+
+        List<DailyQuestionDto> dailyQuestionDtos = questions.stream()
                 .map(this::convertToDto)
                 .collect(Collectors.toList());
+
+        return new DailyQuestionResponseDto(date, dailyQuestionDtos);
     }
 
     @Override
@@ -118,21 +128,17 @@ public class DailyServiceImpl implements DailyService {
     }
 
     private DailyReviewDto convertToDto(Answer answer) {
-        Daily daily = answer.getDaily();
         return DailyReviewDto.builder()
                 .question(answer.getQuestion().getContent()) // Assuming Question entity has a getContent() method
                 .answer(answer.getContent())
                 .recodeUrl(answer.getFile())
-                .date(daily.getDate())
                 .build();
     }
 
     private DailyQuestionDto convertToDto(DailyQuestion dailyQuestion) {
-        Daily daily = dailyQuestion.getDaily();
         return DailyQuestionDto.builder()
                 .questionId(dailyQuestion.getQuestion().getId())
                 .question(dailyQuestion.getQuestion().getContent()) // Assuming Question entity has a getContent() method
-                .date(daily.getDate())
                 .build();
     }
 }

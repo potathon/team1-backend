@@ -96,7 +96,7 @@ public class DailyServiceImpl implements DailyService {
             }
 
             // Assuming there's only one Daily per question
-            //하나의 문제를 여러 번 돌려쓰면 문제가 될 것.
+            //하루에 하나의 문제를 여러 번 돌려쓰면 문제가 될 것.
             Daily daily = todaysDailies.get(0);
 
             Answer answer = Answer.builder()

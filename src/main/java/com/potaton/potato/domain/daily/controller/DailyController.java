@@ -44,7 +44,7 @@ public class DailyController {
     }
 
     @PostMapping("/test/{id}")
-    public ResponseEntity<String> compeleteDaily(DailyCompleteDto dailyCompleteDto){
+    public ResponseEntity<String> compeleteDaily(@RequestBody  DailyCompleteDto dailyCompleteDto){
         dailyService.completeDaily(dailyCompleteDto);
 
         return ResponseEntity.ok("completeDaily success");

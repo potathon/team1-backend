@@ -75,12 +75,11 @@ public class DailyServiceImpl implements DailyService {
     }
 
     @Override
-    public void completeDaily(DailyCompleteDto dailyCompleteDto) {
+    public void completeDaily( DailyCompleteDto dailyCompleteDto) {
         List<ReplyDto> replies = dailyCompleteDto.getReplies();
         Long userId = dailyCompleteDto.getUserId();
 
         LocalDate today = LocalDate.now();
-
 
         User user = userJpaRepository.findById(userId).orElseThrow(() -> new RuntimeException("user not found"));
 
@@ -98,6 +97,7 @@ public class DailyServiceImpl implements DailyService {
             // 필터링: daily의 날짜가 오늘인 것만 추려내기
             List<Daily> todaysDailies = dailyQuestions.stream()
                     .map(DailyQuestion::getDaily)
+                    .peek(daily -> System.out.println("Daily date: " + daily.getDate() + ", Today: " + today))
                     .filter(daily -> daily.getDate().toLocalDate().isEqual(today))
                     .toList();
 

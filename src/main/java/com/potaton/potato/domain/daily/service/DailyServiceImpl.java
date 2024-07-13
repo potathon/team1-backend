@@ -1,6 +1,7 @@
 package com.potaton.potato.domain.daily.service;
 
 import com.potaton.potato.domain.daily.dto.requestdto.DailyCompleteDto;
+import com.potaton.potato.domain.daily.dto.requestdto.QuestionAnswerDto;
 import com.potaton.potato.domain.daily.dto.requestdto.ReplyDto;
 import com.potaton.potato.domain.daily.dto.responsedto.*;
 import com.potaton.potato.domain.daily.entity.Answer;
@@ -16,6 +17,7 @@ import com.potaton.potato.domain.user.entity.User;
 import com.potaton.potato.domain.user.repository.UserJpaRepository;
 import com.potaton.potato.global.file.FileStore;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,9 +34,10 @@ public class DailyServiceImpl implements DailyService {
     private final TagJpaRepository tagJpaRepository;
     private final UserJpaRepository userJpaRepository;
     private final FileStore fileStore;
+    private final FeedbackService feedbackService;
 
     @Autowired
-    public DailyServiceImpl(AnswerJpaRepository answerJpaRepository, DailyJpaRepository dailyJpaRepository, DailyQuestionJpaRepository dailyQuestionJpaRepository, QuestionJpaRepository questionJpaRepository, TagJpaRepository tagJpaRepository, UserJpaRepository userJpaRepository, FileStore fileStore) {
+    public DailyServiceImpl(AnswerJpaRepository answerJpaRepository, DailyJpaRepository dailyJpaRepository, DailyQuestionJpaRepository dailyQuestionJpaRepository, QuestionJpaRepository questionJpaRepository, TagJpaRepository tagJpaRepository, UserJpaRepository userJpaRepository, FileStore fileStore, FeedbackService feedbackService) {
         this.answerJpaRepository = answerJpaRepository;
         this.dailyJpaRepository = dailyJpaRepository;
         this.dailyQuestionJpaRepository = dailyQuestionJpaRepository;
@@ -42,6 +45,7 @@ public class DailyServiceImpl implements DailyService {
         this.tagJpaRepository = tagJpaRepository;
         this.userJpaRepository = userJpaRepository;
         this.fileStore = fileStore;
+        this.feedbackService = feedbackService;
     }
 
     @Override
@@ -89,6 +93,7 @@ public class DailyServiceImpl implements DailyService {
         User user = userJpaRepository.findById(userId).orElseThrow(() -> new RuntimeException("user not found"));
 
         int idx = 0;
+        List<QuestionAnswerDto> questionAnswerDtos = new ArrayList<>();
         for(ReplyDto reply : replies){
             Question question = questionJpaRepository.findById(reply.getQuestionId())
                     .orElseThrow(() -> new RuntimeException("Question not found"));
@@ -113,8 +118,17 @@ public class DailyServiceImpl implements DailyService {
                     .build();
 
             answerJpaRepository.save(answer);
+
+            QuestionAnswerDto questionAnswerDto = QuestionAnswerDto.builder()
+                    .question(question.getContent()) // 질문 내용을 가져오는 부분은 상황에 따라 수정 필요
+                    .answer(reply.getAnswer())
+                    .answerId(answer.getId())
+                    .build();
+
+            questionAnswerDtos.add(questionAnswerDto);
             idx += 1;
         }
+        feedbackService.sendRepliesAsync(questionAnswerDtos);
     }
 
     private DailyReviewDto convertToDto(Answer answer) {

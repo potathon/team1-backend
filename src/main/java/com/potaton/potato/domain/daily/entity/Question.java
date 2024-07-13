@@ -20,4 +20,5 @@ public class Question {
     private Tag tag;
 
     private String content;
+
 }

@@ -1,11 +1,14 @@
 package com.potaton.potato.domain.daily.service;
 
 import com.potaton.potato.domain.daily.dto.requestdto.DailyCompleteDto;
+import com.potaton.potato.domain.daily.dto.requestdto.ReplyDto;
 import com.potaton.potato.domain.daily.dto.responsedto.DailyInfoDto;
 import com.potaton.potato.domain.daily.dto.responsedto.DailyQuestionDto;
 import com.potaton.potato.domain.daily.dto.responsedto.DailyReviewDto;
 import com.potaton.potato.domain.daily.entity.Answer;
 import com.potaton.potato.domain.daily.repository.*;
+import com.potaton.potato.domain.user.entity.User;
+import com.potaton.potato.domain.user.repository.UserJpaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -23,7 +26,7 @@ public class DailyServiceImpl implements DailyService {
     private final TagJpaRepository tagJpaRepository;
 
     @Autowired
-    public DailyServiceImpl(AnswerJpaRepository answerJpaRepository, DailyJpaRepository dailyJpaRepository, DailyQuestionJpaRepository dailyQuestionJpaRepository, QuestionJpaRepository questionJpaRepository, TagJpaRepository tagJpaRepository) {
+    public DailyServiceImpl(AnswerJpaRepository answerJpaRepository, DailyJpaRepository dailyJpaRepository, DailyQuestionJpaRepository dailyQuestionJpaRepository, QuestionJpaRepository questionJpaRepository, TagJpaRepository tagJpaRepository ) {
         this.answerJpaRepository = answerJpaRepository;
         this.dailyJpaRepository = dailyJpaRepository;
         this.dailyQuestionJpaRepository = dailyQuestionJpaRepository;

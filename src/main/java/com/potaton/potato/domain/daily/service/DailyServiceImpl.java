@@ -118,17 +118,21 @@ public class DailyServiceImpl implements DailyService {
     }
 
     private DailyReviewDto convertToDto(Answer answer) {
+        Daily daily = answer.getDaily();
         return DailyReviewDto.builder()
                 .question(answer.getQuestion().getContent()) // Assuming Question entity has a getContent() method
                 .answer(answer.getContent())
                 .recodeUrl(answer.getFile())
+                .date(daily.getDate())
                 .build();
     }
 
     private DailyQuestionDto convertToDto(DailyQuestion dailyQuestion) {
+        Daily daily = dailyQuestion.getDaily();
         return DailyQuestionDto.builder()
                 .questionId(dailyQuestion.getQuestion().getId())
                 .question(dailyQuestion.getQuestion().getContent()) // Assuming Question entity has a getContent() method
+                .date(daily.getDate())
                 .build();
     }
 }

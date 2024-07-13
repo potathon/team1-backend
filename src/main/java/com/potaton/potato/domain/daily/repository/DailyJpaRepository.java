@@ -5,5 +5,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface DailyJpaRepository extends JpaRepository<Daily, Integer> {
+public interface DailyJpaRepository extends JpaRepository<Daily, Long> {
 }

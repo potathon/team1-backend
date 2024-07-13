@@ -9,4 +9,5 @@ import java.util.List;
 @Repository
 public interface DailyQuestionJpaRepository extends JpaRepository<DailyQuestion, Long> {
     List<DailyQuestion> findByQuestionId(Long questionId);
+    List<DailyQuestion> findByDailyId(Long id);
 }

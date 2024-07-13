@@ -16,7 +16,7 @@ public interface DailyJpaRepository extends JpaRepository<Daily, Long> {
     @Query("SELECT d FROM Daily d WHERE d.date <= :date")
     List<Daily> findDailiesBeforeOrEqualToDate(@Param("date") LocalDateTime date);
 
-    @Query("SELECT new com.potaton.potato.domain.daily.dto.responsedto.DailyAnswerCountDto(d.id, d.date, COUNT(a.id)) " +
+    @Query("SELECT new com.potaton.potato.domain.daily.dto.responsedto.DailyInfoDto(d.id, d.date, COUNT(a.id), " +
             "CASE WHEN COUNT(a2.id) > 0 THEN TRUE ELSE FALSE END) " +
             "FROM Daily d " +
             "LEFT JOIN Answer a ON d.id = a.daily.id " +

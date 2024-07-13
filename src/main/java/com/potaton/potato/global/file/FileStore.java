@@ -11,7 +11,7 @@ import org.springframework.web.multipart.MultipartFile;
 @Component
 public class FileStore {
 
-    private final String fileDir = "/var/www/voices";
+    private final String fileDir = "/var/www/profiles";
 
     private String makeFolder() {
 

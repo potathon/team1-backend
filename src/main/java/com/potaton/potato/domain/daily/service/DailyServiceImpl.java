@@ -4,11 +4,13 @@ import com.potaton.potato.domain.daily.dto.requestdto.DailyCompleteDto;
 import com.potaton.potato.domain.daily.dto.responsedto.DailyInfoDto;
 import com.potaton.potato.domain.daily.dto.responsedto.DailyQuestionDto;
 import com.potaton.potato.domain.daily.dto.responsedto.DailyReviewDto;
+import com.potaton.potato.domain.daily.entity.Answer;
 import com.potaton.potato.domain.daily.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
@@ -31,12 +33,14 @@ public class DailyServiceImpl implements DailyService {
 
 
     @Override
-    public List<DailyInfoDto> getDailyList() {
-        return List.of();
+    public List<DailyInfoDto> getDailyList(Long userId) {
+        LocalDateTime today = LocalDateTime.now().withHour(0).withMinute(0).withSecond(0).withNano(0);
+        return dailyJpaRepository.findDailyWithAnswerCountsAndIsDone(today, userId);
     }
 
+
     @Override
-    public List<DailyReviewDto> getDailyReview(Long userId) {
+    public List<DailyReviewDto> getDailyReview(Long userId, Long dailyId) {
         return List.of();
     }
 

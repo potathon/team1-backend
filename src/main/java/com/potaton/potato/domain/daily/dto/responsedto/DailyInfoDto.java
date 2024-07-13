@@ -14,5 +14,5 @@ public class DailyInfoDto {
     private Long id;
     private LocalDateTime date;
     private int answerCnt;
-    private boolean isDone;
+    private Boolean isDone;
 }

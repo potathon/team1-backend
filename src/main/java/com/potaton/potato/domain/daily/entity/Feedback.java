@@ -5,20 +5,20 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+
 @Builder
 @Entity
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-public class Question {
+public class Feedback {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name="tag_id")
-    private Tag tag;
+    @JoinColumn(name="answer_id")
+    private Answer answer;
 
     private String content;
-
 }

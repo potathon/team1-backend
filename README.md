@@ -19,7 +19,7 @@
 - Framework : Spring boot,Flask
 - DB : MariaDB
 - CI/CD : Jenkins
-- API : Github token
+- API : OpenAI chat gpt token
 - Tool : Github
 
 ## 구현 기능
